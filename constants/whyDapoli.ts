@@ -1,7 +1,7 @@
 import type { FeatureCard } from "@/types";
 
 export const WHY_DAPOLI = {
-  eyebrow: "Why Dapoli",
+  eyebrow: "Why Dapoli?",
   heading: "Some Destinations Change Your Destiny.",
   headingAccent: "Dapoli is one of them.",
   paragraphs: [

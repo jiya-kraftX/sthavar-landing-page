@@ -1,7 +1,7 @@
 import type { OfferingCard } from "@/types";
 
 export const WHY_SAPPHIRE = {
-  eyebrow: "Why Sapphire",
+  eyebrow: "Why Sapphire?",
   heading: "Why Sapphire by Sthavar Group?",
   paragraphs: [
     "Sapphire has been created by the Sthavar Group who believe property should represent permanence and stability. Unlike conventional developments, Sapphire brings to you premium gated community living at sea-facing residences.",

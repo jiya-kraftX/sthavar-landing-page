@@ -3,8 +3,8 @@ import type { NavLink, SocialLink } from "@/types";
 export const NAV_LINKS: NavLink[] = [
   { label: "Home", href: "#home" },
   { label: "About Us", href: "#about" },
-  { label: "Why Dapoli", href: "#why-dapoli" },
-  { label: "Why Sapphire", href: "#why-sapphire" },
+  { label: "Why Dapoli?", href: "#why-dapoli" },
+  { label: "Why Sapphire?", href: "#why-sapphire" },
   { label: "Gallery", href: "#gallery" },
   { label: "FAQ", href: "#faq" },
   { label: "Contact", href: "#contact" },

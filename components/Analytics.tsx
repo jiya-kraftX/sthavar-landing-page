@@ -1,8 +1,10 @@
 import Script from "next/script";
 import { GoogleAnalytics } from "@next/third-parties/google";
-import { CLARITY_PROJECT_ID, GA_MEASUREMENT_ID } from "@/lib/analytics";
+import { CLARITY_PROJECT_ID, GA_MEASUREMENT_ID, IS_PRODUCTION } from "@/lib/analytics";
 
 export function Analytics() {
+  if (!IS_PRODUCTION) return null;
+
   return (
     <>
       {GA_MEASUREMENT_ID ? <GoogleAnalytics gaId={GA_MEASUREMENT_ID} /> : null}

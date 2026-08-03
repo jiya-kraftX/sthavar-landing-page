@@ -13,13 +13,13 @@ export const IMAGES = {
     height: 1080,
   },
   about: {
-    publicId: "sapphire/about/villa-exterior-pool",
+    publicId: "about_us_a6maaw",
     alt: "Sea-facing villa exterior with private swimming pool at Sapphire, Dapoli",
     width: 1200,
     height: 1400,
   },
   whyDapoli: {
-    publicId: "sapphire/dapoli/coastline-aerial",
+    publicId: "why_dapoli_lmgprn",
     alt: "Aerial view of Dapoli's pristine coastline and hills",
     width: 1600,
     height: 1000,
