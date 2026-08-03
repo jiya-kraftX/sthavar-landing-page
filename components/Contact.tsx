@@ -1,10 +1,9 @@
-import { CloudinaryImage } from "@/components/ui/CloudinaryImage";
+import { ContactMap } from "@/components/ContactMap";
 import { Container } from "@/components/ui/Container";
 import { Icon } from "@/components/ui/Icon";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { CONTACT_DETAILS, CONTACT_SECTION } from "@/constants/contact";
-import { IMAGES } from "@/constants/images";
 
 export function Contact() {
   return (
@@ -49,14 +48,7 @@ export function Contact() {
 
           <Reveal direction="right">
             <div className="relative aspect-4/3 overflow-hidden rounded-3xl border border-navy/10 shadow-[0_32px_64px_-32px_rgba(11,28,44,0.3)] lg:aspect-auto lg:h-full">
-              <CloudinaryImage
-                src={IMAGES.contactMap.publicId}
-                alt={IMAGES.contactMap.alt}
-                fill
-                sizes="(min-width: 1024px) 40vw, 90vw"
-                className="object-cover"
-                fallbackIcon="map-pin"
-              />
+              <ContactMap />
               <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-linear-to-t from-navy/80 to-transparent p-5">
                 <span className="text-sm font-medium text-white">
                   Dapoli, Ratnagiri District, Maharashtra
