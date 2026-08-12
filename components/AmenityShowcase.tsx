@@ -209,16 +209,6 @@ export function AmenityShowcase({ amenities }: AmenityShowcaseProps) {
   const elapsedRef = useRef(0);
   const activeIndexRef = useRef(activeIndex);
 
-  // TEMPORARY debug logging — remove once the autoplay start-index bug is confirmed fixed.
-  useEffect(() => {
-    console.log("[AMENITIES] mounted");
-    console.log("[AMENITIES] initial index:", activeIndexRef.current);
-  }, []);
-
-  useEffect(() => {
-    console.log("[AMENITIES] active index changed:", activeIndex);
-  }, [activeIndex]);
-
   const selectAmenity = (index: number) => {
     if (index === activeIndexRef.current) return;
 
@@ -237,8 +227,6 @@ export function AmenityShowcase({ amenities }: AmenityShowcaseProps) {
   // of it starts, so there can never be two loops ticking at once.
   useEffect(() => {
     if (!isAutoplayActive) return;
-
-    console.log("[AMENITIES] timer started at index:", activeIndexRef.current);
 
     let rafId: number;
     let lastTimestamp: number | null = null;
@@ -262,10 +250,7 @@ export function AmenityShowcase({ amenities }: AmenityShowcaseProps) {
 
     rafId = requestAnimationFrame(tick);
 
-    return () => {
-      cancelAnimationFrame(rafId);
-      console.log("[AMENITIES] timer paused/stopped at index:", activeIndexRef.current);
-    };
+    return () => cancelAnimationFrame(rafId);
   }, [isAutoplayActive, amenities.length]);
 
   const active = amenities[activeIndex];
