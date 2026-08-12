@@ -185,6 +185,9 @@ function AmenitySelectorButton({
 }
 
 export function AmenityShowcase({ amenities }: AmenityShowcaseProps) {
+  // Explicit, literal initial state — never derived from time, storage,
+  // URL, history, or the intersection observer. A fresh mount always
+  // starts at amenity 0 (Clubhouse) with 0 progress.
   const [activeIndex, setActiveIndex] = useState(0);
   const [interacting, setInteracting] = useState(false);
   const [progress, setProgress] = useState(0);
@@ -198,10 +201,23 @@ export function AmenityShowcase({ amenities }: AmenityShowcaseProps) {
     getVisibilitySnapshot,
     getVisibilityServerSnapshot
   );
+  // `inView` only ever gates whether the autoplay loop below is allowed to
+  // run — it never writes to `activeIndex` itself, so the section entering
+  // the viewport can pause/resume the timeline but can never jump it ahead.
   const { ref: sectionRef, inView } = useInView<HTMLDivElement>();
 
   const elapsedRef = useRef(0);
   const activeIndexRef = useRef(activeIndex);
+
+  // TEMPORARY debug logging — remove once the autoplay start-index bug is confirmed fixed.
+  useEffect(() => {
+    console.log("[AMENITIES] mounted");
+    console.log("[AMENITIES] initial index:", activeIndexRef.current);
+  }, []);
+
+  useEffect(() => {
+    console.log("[AMENITIES] active index changed:", activeIndex);
+  }, [activeIndex]);
 
   const selectAmenity = (index: number) => {
     if (index === activeIndexRef.current) return;
@@ -214,8 +230,15 @@ export function AmenityShowcase({ amenities }: AmenityShowcaseProps) {
 
   const isAutoplayActive = inView && !interacting && !documentHidden && !reducedMotion;
 
+  // The single autoplay loop for the whole component. It only ever starts
+  // once `isAutoplayActive` is true — i.e. after the section has genuinely
+  // been observed on screen at least once — and React guarantees this
+  // effect's cleanup (cancelAnimationFrame) runs before any later instance
+  // of it starts, so there can never be two loops ticking at once.
   useEffect(() => {
     if (!isAutoplayActive) return;
+
+    console.log("[AMENITIES] timer started at index:", activeIndexRef.current);
 
     let rafId: number;
     let lastTimestamp: number | null = null;
@@ -239,7 +262,10 @@ export function AmenityShowcase({ amenities }: AmenityShowcaseProps) {
 
     rafId = requestAnimationFrame(tick);
 
-    return () => cancelAnimationFrame(rafId);
+    return () => {
+      cancelAnimationFrame(rafId);
+      console.log("[AMENITIES] timer paused/stopped at index:", activeIndexRef.current);
+    };
   }, [isAutoplayActive, amenities.length]);
 
   const active = amenities[activeIndex];
