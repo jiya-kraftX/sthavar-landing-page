@@ -8,14 +8,12 @@ import { useInView } from "@/hooks/useInView";
 import type { AmenityItem } from "@/types";
 import { cn } from "@/utils/cn";
 
-const IMAGE_LEAVE_MS = 220;
-const IMAGE_ENTER_MS = 600;
-const TEXT_LEAVE_MS = 160;
-const TEXT_ENTER_MS = 300;
-const SELECTOR_STAGGER_MS = 120;
 const AUTOPLAY_MS = 5000;
-
-type TransitionPhase = "idle" | "leaving" | "reset" | "entering";
+const BLUR_IN_END = 0.3; // 1.5s / 5s — matches the gold line's 30% mark
+const SHARP_END = 0.7; // 3.5s / 5s — matches the gold line's 70% mark
+const BLUR_PEAK_PX = 11;
+const EDGE_OPACITY = 0.7;
+const SELECTOR_STAGGER_MS = 120;
 
 const REDUCED_MOTION_QUERY = "(prefers-reduced-motion: reduce)";
 
@@ -50,49 +48,29 @@ interface AmenityShowcaseProps {
   amenities: AmenityItem[];
 }
 
-function getImageStyle(phase: TransitionPhase): CSSProperties {
-  const base: CSSProperties = {
-    transitionProperty: "opacity, filter",
-    transitionTimingFunction: "ease-out",
-  };
+// A single 5s cycle, driven entirely by `progress` (0 to 1):
+// 0 -> 0.3   blur in  (12px -> 0px, 70% -> 100% opacity)
+// 0.3 -> 0.7 sharp    (held stable)
+// 0.7 -> 1   blur out (0px -> 12px, 100% -> 70% opacity)
+function getImageStyle(progress: number): CSSProperties {
+  const p = Math.min(Math.max(progress, 0), 1);
 
-  switch (phase) {
-    case "leaving":
-      return { ...base, opacity: 0, filter: "blur(16px)", transitionDuration: `${IMAGE_LEAVE_MS}ms` };
-    case "reset":
-      return { ...base, opacity: 0, filter: "blur(16px)", transitionDuration: "0ms" };
-    case "entering":
-    case "idle":
-    default:
-      return { ...base, opacity: 1, filter: "blur(0px)", transitionDuration: `${IMAGE_ENTER_MS}ms` };
+  if (p < BLUR_IN_END) {
+    const t = p / BLUR_IN_END;
+    return {
+      filter: `blur(${BLUR_PEAK_PX * (1 - t)}px)`,
+      opacity: EDGE_OPACITY + (1 - EDGE_OPACITY) * t,
+    };
   }
-}
 
-function getTextStyle(phase: TransitionPhase): CSSProperties {
-  const base: CSSProperties = {
-    transitionProperty: "opacity, transform",
-    transitionTimingFunction: "ease-out",
-  };
-
-  switch (phase) {
-    case "leaving":
-      return { ...base, opacity: 0, transform: "translateY(-12px)", transitionDuration: `${TEXT_LEAVE_MS}ms` };
-    case "reset":
-      return { ...base, opacity: 0, transform: "translateY(12px)", transitionDuration: "0ms" };
-    case "entering":
-    case "idle":
-    default:
-      return { ...base, opacity: 1, transform: "translateY(0)", transitionDuration: `${TEXT_ENTER_MS}ms` };
+  if (p < SHARP_END) {
+    return { filter: "blur(0px)", opacity: 1 };
   }
-}
 
-function getAutoplayFillStyle(paused: boolean): CSSProperties {
+  const t = (p - SHARP_END) / (1 - SHARP_END);
   return {
-    animationName: "amenity-autoplay",
-    animationDuration: `${AUTOPLAY_MS}ms`,
-    animationTimingFunction: "linear",
-    animationFillMode: "forwards",
-    animationPlayState: paused ? "paused" : "running",
+    filter: `blur(${BLUR_PEAK_PX * t}px)`,
+    opacity: 1 - (1 - EDGE_OPACITY) * t,
   };
 }
 
@@ -122,9 +100,8 @@ interface AmenitySelectorButtonProps {
   index: number;
   isActive: boolean;
   reducedMotion: boolean;
-  autoplayPaused: boolean;
+  progress: number;
   onSelect: (index: number) => void;
-  onAutoplayComplete: () => void;
 }
 
 function AmenitySelectorButton({
@@ -132,9 +109,8 @@ function AmenitySelectorButton({
   index,
   isActive,
   reducedMotion,
-  autoplayPaused,
+  progress,
   onSelect,
-  onAutoplayComplete,
 }: AmenitySelectorButtonProps) {
   const [ripple, setRipple] = useState<{ x: number; y: number; key: number } | null>(null);
 
@@ -198,9 +174,8 @@ function AmenitySelectorButton({
             <span className="block h-full w-full rounded-full bg-gold" />
           ) : (
             <span
-              onAnimationEnd={onAutoplayComplete}
               className="block h-full rounded-full bg-gold"
-              style={getAutoplayFillStyle(autoplayPaused)}
+              style={{ width: `${progress * 100}%` }}
             />
           )
         ) : null}
@@ -211,8 +186,8 @@ function AmenitySelectorButton({
 
 export function AmenityShowcase({ amenities }: AmenityShowcaseProps) {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [phase, setPhase] = useState<TransitionPhase>("idle");
   const [interacting, setInteracting] = useState(false);
+  const [progress, setProgress] = useState(0);
   const reducedMotion = useSyncExternalStore(
     subscribeReducedMotion,
     getReducedMotionSnapshot,
@@ -224,49 +199,50 @@ export function AmenityShowcase({ amenities }: AmenityShowcaseProps) {
     getVisibilityServerSnapshot
   );
   const { ref: sectionRef, inView } = useInView<HTMLDivElement>();
-  const autoplayPaused = documentHidden || interacting || !inView;
-  const timeouts = useRef<ReturnType<typeof setTimeout>[]>([]);
-  const frames = useRef<number[]>([]);
 
-  useEffect(
-    () => () => {
-      timeouts.current.forEach(clearTimeout);
-      frames.current.forEach(cancelAnimationFrame);
-    },
-    []
-  );
+  const elapsedRef = useRef(0);
+  const activeIndexRef = useRef(activeIndex);
 
   const selectAmenity = (index: number) => {
-    if (index === activeIndex || phase !== "idle") return;
+    if (index === activeIndexRef.current) return;
 
-    if (reducedMotion) {
-      setActiveIndex(index);
-      return;
-    }
-
-    setPhase("leaving");
-
-    const toReset = setTimeout(() => {
-      setActiveIndex(index);
-      setPhase("reset");
-
-      const firstFrame = requestAnimationFrame(() => {
-        const secondFrame = requestAnimationFrame(() => {
-          setPhase("entering");
-
-          const toIdle = setTimeout(() => setPhase("idle"), IMAGE_ENTER_MS);
-          timeouts.current.push(toIdle);
-        });
-        frames.current.push(secondFrame);
-      });
-      frames.current.push(firstFrame);
-    }, IMAGE_LEAVE_MS);
-
-    timeouts.current.push(toReset);
+    elapsedRef.current = 0;
+    activeIndexRef.current = index;
+    setProgress(0);
+    setActiveIndex(index);
   };
 
+  const isAutoplayActive = inView && !interacting && !documentHidden && !reducedMotion;
+
+  useEffect(() => {
+    if (!isAutoplayActive) return;
+
+    let rafId: number;
+    let lastTimestamp: number | null = null;
+
+    const tick = (timestamp: number) => {
+      if (lastTimestamp === null) lastTimestamp = timestamp;
+      const delta = timestamp - lastTimestamp;
+      lastTimestamp = timestamp;
+
+      elapsedRef.current += delta;
+
+      if (elapsedRef.current >= AUTOPLAY_MS) {
+        elapsedRef.current -= AUTOPLAY_MS;
+        activeIndexRef.current = (activeIndexRef.current + 1) % amenities.length;
+        setActiveIndex(activeIndexRef.current);
+      }
+
+      setProgress(elapsedRef.current / AUTOPLAY_MS);
+      rafId = requestAnimationFrame(tick);
+    };
+
+    rafId = requestAnimationFrame(tick);
+
+    return () => cancelAnimationFrame(rafId);
+  }, [isAutoplayActive, amenities.length]);
+
   const active = amenities[activeIndex];
-  const advanceToNext = () => selectAmenity((activeIndex + 1) % amenities.length);
 
   return (
     <div
@@ -292,9 +268,8 @@ export function AmenityShowcase({ amenities }: AmenityShowcaseProps) {
               index={index}
               isActive={index === activeIndex}
               reducedMotion={reducedMotion}
-              autoplayPaused={autoplayPaused}
+              progress={progress}
               onSelect={selectAmenity}
-              onAutoplayComplete={advanceToNext}
             />
           </Reveal>
         ))}
@@ -309,7 +284,7 @@ export function AmenityShowcase({ amenities }: AmenityShowcaseProps) {
               fill
               sizes="(min-width: 1024px) 70vw, 100vw"
               className="object-cover"
-              style={getImageStyle(phase)}
+              style={reducedMotion ? { filter: "blur(0px)", opacity: 1 } : getImageStyle(progress)}
             />
             <div
               aria-hidden
@@ -343,7 +318,7 @@ export function AmenityShowcase({ amenities }: AmenityShowcaseProps) {
                       ) : (
                         <span
                           className="block h-full rounded-full bg-gold"
-                          style={getAutoplayFillStyle(autoplayPaused)}
+                          style={{ width: `${progress * 100}%` }}
                         />
                       )
                     ) : null}
@@ -354,7 +329,10 @@ export function AmenityShowcase({ amenities }: AmenityShowcaseProps) {
           </div>
 
           <div className="mt-6 overflow-hidden" aria-live="polite">
-            <div style={getTextStyle(phase)}>
+            <div
+              key={activeIndex}
+              className="motion-safe:animate-[amenity-text-in_420ms_ease-out]"
+            >
               <h4 className="font-serif text-xl text-navy sm:text-2xl">{active.label}</h4>
               <p className="mt-2 max-w-xl text-sm leading-relaxed text-navy/65 sm:text-base">
                 {active.description}
