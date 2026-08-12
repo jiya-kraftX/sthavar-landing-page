@@ -1,3 +1,4 @@
+import { AmenityShowcase } from "@/components/AmenityShowcase";
 import { Button } from "@/components/ui/Button";
 import { CloudinaryImage } from "@/components/ui/CloudinaryImage";
 import { Container } from "@/components/ui/Container";
@@ -66,13 +67,7 @@ export function About() {
           <Reveal>
             <h3 className="font-serif text-2xl text-navy">Signature Amenities</h3>
           </Reveal>
-          <div className="mt-6 flex flex-wrap gap-3">
-            {ABOUT_AMENITIES.map((amenity, index) => (
-              <Reveal key={amenity.label} delay={index * 60}>
-                <InfoCard icon={amenity.icon} title={amenity.label} compact />
-              </Reveal>
-            ))}
-          </div>
+          <AmenityShowcase amenities={ABOUT_AMENITIES} />
         </div>
       </Container>
     </section>

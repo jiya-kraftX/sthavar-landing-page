@@ -19,8 +19,11 @@ export interface FeatureCard {
 }
 
 export interface AmenityItem {
+  id: string;
   icon: IconKey;
   label: string;
+  description: string;
+  image: ImageAsset;
 }
 
 export interface OfferingCard {

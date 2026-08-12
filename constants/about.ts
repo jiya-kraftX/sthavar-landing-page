@@ -1,4 +1,5 @@
 import type { AmenityItem, OfferingCard } from "@/types";
+import { IMAGES } from "@/constants/images";
 
 export const ABOUT = {
   eyebrow: "About Us",
@@ -54,10 +55,39 @@ export const ABOUT_SERVICES: OfferingCard[] = [
 ];
 
 export const ABOUT_AMENITIES: AmenityItem[] = [
-  { icon: "buildings", label: "Clubhouse" },
-  { icon: "pool", label: "Swimming Pool" },
-  { icon: "map-trifold", label: "Pickleball Court" },
-  { icon: "barbell", label: "Fully Equipped Gym" },
-  { icon: "mountains", label: "Landscaped Open Spaces" },
-  { icon: "wave", label: "Private Swimming Pool*" },
+  {
+    id: "clubhouse",
+    icon: "buildings",
+    label: "Clubhouse",
+    description: "An elegant space to gather, unwind and connect.",
+    image: IMAGES.clubhouse,
+  },
+  {
+    id: "swimming-pool",
+    icon: "pool",
+    label: "Swimming Pool",
+    description: "A tranquil escape designed for leisurely days and relaxed evenings.",
+    image: IMAGES.swimmingPool,
+  },
+  {
+    id: "pickleball-court",
+    icon: "tennis-ball",
+    label: "Pickleball Court",
+    description: "Stay active, play freely and enjoy every match.",
+    image: IMAGES.pickleballCourt,
+  },
+  {
+    id: "gym",
+    icon: "barbell",
+    label: "Fully Equipped Gym",
+    description: "A dedicated space to keep wellness part of everyday living.",
+    image: IMAGES.gym,
+  },
+  {
+    id: "landscaped-open-spaces",
+    icon: "mountains",
+    label: "Landscaped Open Spaces",
+    description: "Open, green spaces designed for calm, connection and fresh air.",
+    image: IMAGES.landscapedOpenSpaces,
+  },
 ];

@@ -37,9 +37,39 @@ export const IMAGES = {
     height: 900,
   },
   logo: {
-    publicId: "sapphire/brand/sthavar-logo-mark",
-    alt: "Sthavar Group logo",
+    publicId: "logo",
+    alt: "Sthavar Group Logo",
     width: 160,
     height: 48,
+  },
+  clubhouse: {
+    publicId: "clubhouse",
+    alt: "Clubhouse at Sapphire by Sthavar Group",
+    width: 1600,
+    height: 1200,
+  },
+  swimmingPool: {
+    publicId: "private_swimming_pool",
+    alt: "Swimming pool at Sapphire by Sthavar Group",
+    width: 1600,
+    height: 1200,
+  },
+  pickleballCourt: {
+    publicId: "pickleball",
+    alt: "Pickleball court at Sapphire by Sthavar Group",
+    width: 1600,
+    height: 1200,
+  },
+  gym: {
+    publicId: "gym",
+    alt: "Fully equipped gym at Sapphire by Sthavar Group",
+    width: 1600,
+    height: 1200,
+  },
+  landscapedOpenSpaces: {
+    publicId: "landscape_open_spaces",
+    alt: "Landscaped open spaces at Sapphire by Sthavar Group",
+    width: 1600,
+    height: 1200,
   },
 } as const satisfies Record<string, ImageAsset>;

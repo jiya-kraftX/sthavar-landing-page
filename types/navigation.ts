@@ -23,6 +23,7 @@ export type IconKey =
   | "map-trifold"
   | "pool"
   | "barbell"
+  | "tennis-ball"
   | "users-three"
   | "handshake"
   | "coins"

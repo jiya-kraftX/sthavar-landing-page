@@ -17,8 +17,9 @@ export function Footer() {
             <CloudinaryImage
               src={IMAGES.logo.publicId}
               alt=""
-              width={40}
-              height={40}
+              width={160}
+              height={160}
+              quality="auto:best"
               className="h-10 w-10 rounded-full object-cover"
               fallbackClassName="h-10 w-10 rounded-full border border-white/20"
               fallbackVariant="compact"
