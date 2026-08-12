@@ -44,6 +44,26 @@ function getVisibilityServerSnapshot() {
   return false;
 }
 
+// Only devices with a real pointer (mouse/trackpad) get hover-based pausing.
+// Touch devices fire synthetic mouseenter/focus on tap with no matching
+// mouseleave/blur to follow, which would otherwise leave autoplay paused
+// (and the image stuck mid-blur) permanently after the first tap.
+const HOVER_CAPABLE_QUERY = "(hover: hover) and (pointer: fine)";
+
+function subscribeHoverCapable(callback: () => void) {
+  const query = window.matchMedia(HOVER_CAPABLE_QUERY);
+  query.addEventListener("change", callback);
+  return () => query.removeEventListener("change", callback);
+}
+
+function getHoverCapableSnapshot() {
+  return window.matchMedia(HOVER_CAPABLE_QUERY).matches;
+}
+
+function getHoverCapableServerSnapshot() {
+  return false;
+}
+
 interface AmenityShowcaseProps {
   amenities: AmenityItem[];
 }
@@ -201,6 +221,11 @@ export function AmenityShowcase({ amenities }: AmenityShowcaseProps) {
     getVisibilitySnapshot,
     getVisibilityServerSnapshot
   );
+  const hoverCapable = useSyncExternalStore(
+    subscribeHoverCapable,
+    getHoverCapableSnapshot,
+    getHoverCapableServerSnapshot
+  );
   // `inView` only ever gates whether the autoplay loop below is allowed to
   // run — it never writes to `activeIndex` itself, so the section entering
   // the viewport can pause/resume the timeline but can never jump it ahead.
@@ -259,9 +284,20 @@ export function AmenityShowcase({ amenities }: AmenityShowcaseProps) {
     <div
       ref={sectionRef}
       className="mt-8 flex flex-col gap-8"
-      onMouseEnter={() => setInteracting(true)}
-      onMouseLeave={() => setInteracting(false)}
-      onFocus={() => setInteracting(true)}
+      onMouseEnter={() => {
+        if (hoverCapable) setInteracting(true);
+      }}
+      onMouseLeave={() => {
+        if (hoverCapable) setInteracting(false);
+      }}
+      onFocus={(event) => {
+        // Only pause for genuine keyboard focus (desktop tab navigation).
+        // Tap-triggered focus on touch devices doesn't match :focus-visible,
+        // so it never pauses autoplay in the first place.
+        if (event.target.matches(":focus-visible")) {
+          setInteracting(true);
+        }
+      }}
       onBlur={(event) => {
         if (!event.currentTarget.contains(event.relatedTarget as Node | null)) {
           setInteracting(false);
