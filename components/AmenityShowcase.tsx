@@ -4,6 +4,7 @@ import { useEffect, useRef, useState, useSyncExternalStore, type CSSProperties, 
 import { CloudinaryImage } from "@/components/ui/CloudinaryImage";
 import { Icon } from "@/components/ui/Icon";
 import { Reveal } from "@/components/ui/Reveal";
+import { useInView } from "@/hooks/useInView";
 import type { AmenityItem } from "@/types";
 import { cn } from "@/utils/cn";
 
@@ -222,7 +223,8 @@ export function AmenityShowcase({ amenities }: AmenityShowcaseProps) {
     getVisibilitySnapshot,
     getVisibilityServerSnapshot
   );
-  const autoplayPaused = documentHidden || interacting;
+  const { ref: sectionRef, inView } = useInView<HTMLDivElement>();
+  const autoplayPaused = documentHidden || interacting || !inView;
   const timeouts = useRef<ReturnType<typeof setTimeout>[]>([]);
   const frames = useRef<number[]>([]);
 
@@ -268,6 +270,7 @@ export function AmenityShowcase({ amenities }: AmenityShowcaseProps) {
 
   return (
     <div
+      ref={sectionRef}
       className="mt-8 flex flex-col gap-8"
       onMouseEnter={() => setInteracting(true)}
       onMouseLeave={() => setInteracting(false)}
@@ -299,7 +302,7 @@ export function AmenityShowcase({ amenities }: AmenityShowcaseProps) {
 
       <Reveal delay={amenities.length * SELECTOR_STAGGER_MS + 80}>
         <div>
-          <div className="relative aspect-video overflow-hidden rounded-3xl shadow-[0_32px_64px_-32px_rgba(11,28,44,0.35)] lg:aspect-[21/9]">
+          <div className="relative aspect-video overflow-hidden rounded-3xl shadow-[0_32px_64px_-32px_rgba(11,28,44,0.35)] lg:aspect-21/9">
             <CloudinaryImage
               src={active.image.publicId}
               alt={active.image.alt}
