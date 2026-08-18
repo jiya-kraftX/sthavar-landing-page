@@ -32,7 +32,7 @@ export function FAQ() {
                 <div
                   className={cn(
                     "overflow-hidden rounded-2xl border bg-white transition-colors",
-                    isOpen ? "border-gold/50" : "border-navy/10"
+                    isOpen ? "border-gold/50" : "border-pebble"
                   )}
                 >
                   <h3>
@@ -44,7 +44,7 @@ export function FAQ() {
                       id={`faq-trigger-${item.id}`}
                       className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left"
                     >
-                      <span className="font-serif text-lg text-navy">{item.question}</span>
+                      <span className="font-serif text-lg text-espresso">{item.question}</span>
                       <Icon
                         name="chevron-down"
                         className={cn(
@@ -64,7 +64,7 @@ export function FAQ() {
                     )}
                   >
                     <div className="overflow-hidden">
-                      <p className="px-6 pb-5 text-base leading-relaxed text-navy/70">
+                      <p className="px-6 pb-5 text-base leading-relaxed text-espresso/70">
                         {item.answer}
                       </p>
                     </div>

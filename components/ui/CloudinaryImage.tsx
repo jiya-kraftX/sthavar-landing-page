@@ -31,6 +31,7 @@ export function CloudinaryImage({
   fallbackVariant = "panel",
   alt,
   fill,
+  style,
   ...props
 }: CloudinaryImageProps) {
   const [failed, setFailed] = useState(!CLOUD_NAME);
@@ -49,6 +50,7 @@ export function CloudinaryImage({
           fill && "absolute inset-0",
           fallbackClassName ?? className
         )}
+        style={style}
       >
         <Icon
           name={fallbackIcon}
@@ -71,6 +73,7 @@ export function CloudinaryImage({
       className={className}
       alt={alt}
       fill={fill}
+      style={style}
       onError={() => setFailed(true)}
       {...props}
     />

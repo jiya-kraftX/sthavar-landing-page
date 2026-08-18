@@ -32,7 +32,7 @@ export function Footer() {
               </span>
             </span>
           </div>
-          <p className="max-w-sm text-sm leading-relaxed text-white/60">{SITE.description}</p>
+          <p className="max-w-sm text-xs leading-relaxed text-white/60">{SITE.description}</p>
           <ul className="flex items-center gap-3">
             {SOCIAL_LINKS.map((social) => (
               <li key={social.label}>
@@ -59,7 +59,7 @@ export function Footer() {
               <li key={link.href}>
                 <a
                   href={link.href}
-                  className="text-sm text-white/70 transition-colors hover:text-white"
+                  className="text-xs text-white/70 transition-colors hover:text-white"
                 >
                   {link.label}
                 </a>
@@ -74,7 +74,7 @@ export function Footer() {
           </h3>
           <ul className="flex flex-col gap-2.5">
             {CONTACT_DETAILS.map((detail) => (
-              <li key={detail.label} className="text-sm text-white/70">
+              <li key={detail.label} className="text-xs text-white/70">
                 {detail.href ? (
                   <a href={detail.href} className="transition-colors hover:text-white">
                     {detail.value}

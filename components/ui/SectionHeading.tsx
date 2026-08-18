@@ -39,7 +39,7 @@ export function SectionHeading({
       <h2
         className={cn(
           "font-serif text-3xl leading-tight sm:text-4xl lg:text-[2.75rem]",
-          light ? "text-white" : "text-navy"
+          light ? "text-white" : "text-espresso"
         )}
       >
         {heading}
@@ -56,7 +56,7 @@ export function SectionHeading({
         <p
           className={cn(
             "max-w-2xl text-base leading-relaxed sm:text-lg",
-            light ? "text-white/70" : "text-navy/70"
+            light ? "text-white/70" : "text-espresso/70"
           )}
         >
           {description}

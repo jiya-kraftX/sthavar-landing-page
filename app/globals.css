@@ -1,13 +1,23 @@
 @import "tailwindcss";
 
 :root {
-  --color-navy: #0b1c2c;
-  --color-navy-light: #16324a;
-  --color-navy-dark: #060f19;
-  --color-gold: #c6a15b;
-  --color-gold-light: #ddc07f;
-  --color-gold-dark: #9c7a3c;
-  --color-cream: #faf8f4;
+  /* Secondary (30%) — dark espresso brown: headers, nav, text, deep sections */
+  --color-navy: #2c1e16;
+  --color-navy-light: #3f2c21;
+  --color-navy-dark: #1a110c;
+  /* Accent (10%) — pale champagne gold: buttons, active states, borders */
+  --color-gold: #e0c280;
+  --color-gold-light: #ead3a0;
+  --color-gold-dark: #b89355;
+  /* Supporting tone — terracotta/bronze brown */
+  --color-bronze: #a85c3b;
+  --color-bronze-light: #c67d57;
+  /* Dominant (60%) — soft warm cream, primary page background */
+  --color-cream: #f5efee;
+  /* Dark text — matches the espresso secondary */
+  --color-espresso: #2c1e16;
+  /* Muted neutral */
+  --color-pebble: #d8d2c4;
   --color-ink: #171717;
 }
 
@@ -18,7 +28,11 @@
   --color-gold: var(--color-gold);
   --color-gold-light: var(--color-gold-light);
   --color-gold-dark: var(--color-gold-dark);
+  --color-bronze: var(--color-bronze);
+  --color-bronze-light: var(--color-bronze-light);
   --color-cream: var(--color-cream);
+  --color-espresso: var(--color-espresso);
+  --color-pebble: var(--color-pebble);
   --font-sans: var(--font-inter);
   --font-serif: var(--font-playfair);
 }
@@ -29,7 +43,7 @@ html {
 
 body {
   background: var(--color-cream);
-  color: var(--color-navy);
+  color: var(--color-espresso);
   font-family: var(--font-sans), Arial, Helvetica, sans-serif;
 }
 
@@ -39,7 +53,7 @@ section[id] {
 
 ::selection {
   background: var(--color-gold);
-  color: var(--color-navy);
+  color: var(--color-espresso);
 }
 
 @keyframes amenity-icon-pulse {

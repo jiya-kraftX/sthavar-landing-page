@@ -1,4 +1,30 @@
-import type { FeatureCard } from "@/types";
+import type { FeatureCard, ImageAsset } from "@/types";
+import { IMAGES } from "@/constants/images";
+
+// Cycled back-to-back in the Why Dapoli showcase. The three besides the
+// aerial shot reuse the same real, already-uploaded Cloudinary assets as
+// the Gallery section (same public IDs) rather than inventing new ones.
+export const WHY_DAPOLI_GALLERY: ImageAsset[] = [
+  IMAGES.whyDapoli,
+  {
+    publicId: "dusk_at_sea_level_nesmcz",
+    alt: "Sapphire villa exterior at dusk with sea views",
+    width: 1200,
+    height: 1200,
+  },
+  {
+    publicId: "seaview_negexu",
+    alt: "Uninterrupted sea view from a Sapphire villa balcony",
+    width: 800,
+    height: 800,
+  },
+  {
+    publicId: "seafacing_rowhouse_xvhmxe",
+    alt: "Sea facing rowhouse facade at Sapphire",
+    width: 800,
+    height: 800,
+  },
+];
 
 export const WHY_DAPOLI = {
   eyebrow: "Why Dapoli?",
@@ -15,7 +41,16 @@ export const WHY_DAPOLI = {
   ],
 } as const;
 
-export const WHY_DAPOLI_FEATURES: FeatureCard[] = [
+// Six highlight boxes for the Why Dapoli showcase. Each is grounded in
+// wording already present in WHY_DAPOLI's paragraphs above — nothing here
+// introduces a new claim, distance, or statistic.
+export const WHY_DAPOLI_HIGHLIGHTS: FeatureCard[] = [
+  {
+    id: "coastal-living",
+    icon: "wave",
+    title: "Coastal Living",
+    description: "Pristine beaches and a slower pace of life define Dapoli.",
+  },
   {
     id: "nh66",
     icon: "road",
@@ -39,5 +74,11 @@ export const WHY_DAPOLI_FEATURES: FeatureCard[] = [
     icon: "trend-up",
     title: "Investment Growth",
     description: "Rising interest in Dapoli's coastal land investment.",
+  },
+  {
+    id: "natural-greenery",
+    icon: "mountains",
+    title: "Natural Greenery",
+    description: "Lush hills and open landscapes surround every home.",
   },
 ];

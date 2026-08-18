@@ -19,7 +19,7 @@ export const IMAGES = {
     height: 1400,
   },
   whyDapoli: {
-    publicId: "why_dapoli_lmgprn",
+    publicId: "whyy_dapoli_gefcmt",
     alt: "Aerial view of Dapoli's pristine coastline and hills",
     width: 1600,
     height: 1000,

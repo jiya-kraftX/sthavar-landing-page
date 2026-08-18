@@ -8,6 +8,7 @@ export interface ImageAsset {
 }
 
 export interface GalleryImage extends ImageAsset {
+  title: string;
   featured?: boolean;
 }
 

@@ -44,26 +44,6 @@ function getVisibilityServerSnapshot() {
   return false;
 }
 
-// Only devices with a real pointer (mouse/trackpad) get hover-based pausing.
-// Touch devices fire synthetic mouseenter/focus on tap with no matching
-// mouseleave/blur to follow, which would otherwise leave autoplay paused
-// (and the image stuck mid-blur) permanently after the first tap.
-const HOVER_CAPABLE_QUERY = "(hover: hover) and (pointer: fine)";
-
-function subscribeHoverCapable(callback: () => void) {
-  const query = window.matchMedia(HOVER_CAPABLE_QUERY);
-  query.addEventListener("change", callback);
-  return () => query.removeEventListener("change", callback);
-}
-
-function getHoverCapableSnapshot() {
-  return window.matchMedia(HOVER_CAPABLE_QUERY).matches;
-}
-
-function getHoverCapableServerSnapshot() {
-  return false;
-}
-
 interface AmenityShowcaseProps {
   amenities: AmenityItem[];
 }
@@ -150,7 +130,7 @@ function AmenitySelectorButton({
       onClick={handleClick}
       className={cn(
         "group relative flex min-w-28 flex-col items-start gap-2 overflow-hidden rounded-2xl px-4 py-3 text-left transition-[transform,opacity] duration-300 ease-out motion-reduce:transition-none",
-        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-cream",
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-navy",
         isActive
           ? "opacity-100"
           : "opacity-60 hover:-translate-y-1 hover:opacity-90 motion-reduce:hover:translate-y-0"
@@ -169,7 +149,7 @@ function AmenitySelectorButton({
       <span
         className={cn(
           "text-xs font-semibold tracking-[0.2em]",
-          isActive ? "text-gold-dark" : "text-navy/40 group-hover:text-navy/60"
+          isActive ? "text-gold-light" : "text-white/40 group-hover:text-white/60"
         )}
       >
         {String(index + 1).padStart(2, "0")}
@@ -179,16 +159,16 @@ function AmenitySelectorButton({
         className={cn(
           "h-6 w-6 transition-colors duration-300",
           isActive
-            ? "text-gold-dark motion-safe:animate-[amenity-icon-pulse_380ms_ease-out]"
-            : "text-navy/50 group-hover:text-navy/70"
+            ? "text-gold-light motion-safe:animate-[amenity-icon-pulse_380ms_ease-out]"
+            : "text-white/50 group-hover:text-white/70"
         )}
       />
       <span
-        className={cn("text-sm font-medium leading-snug", isActive ? "text-navy" : "text-navy/60")}
+        className={cn("text-sm font-medium leading-snug", isActive ? "text-white" : "text-white/60")}
       >
         {amenity.label}
       </span>
-      <span aria-hidden className="block h-0.5 w-full overflow-hidden rounded-full bg-navy/10">
+      <span aria-hidden className="block h-0.5 w-full overflow-hidden rounded-full bg-white/15">
         {isActive ? (
           reducedMotion ? (
             <span className="block h-full w-full rounded-full bg-gold" />
@@ -220,11 +200,6 @@ export function AmenityShowcase({ amenities }: AmenityShowcaseProps) {
     subscribeVisibility,
     getVisibilitySnapshot,
     getVisibilityServerSnapshot
-  );
-  const hoverCapable = useSyncExternalStore(
-    subscribeHoverCapable,
-    getHoverCapableSnapshot,
-    getHoverCapableServerSnapshot
   );
   // `inView` only ever gates whether the autoplay loop below is allowed to
   // run — it never writes to `activeIndex` itself, so the section entering
@@ -284,12 +259,6 @@ export function AmenityShowcase({ amenities }: AmenityShowcaseProps) {
     <div
       ref={sectionRef}
       className="mt-8 flex flex-col gap-8"
-      onMouseEnter={() => {
-        if (hoverCapable) setInteracting(true);
-      }}
-      onMouseLeave={() => {
-        if (hoverCapable) setInteracting(false);
-      }}
       onFocus={(event) => {
         // Only pause for genuine keyboard focus (desktop tab navigation).
         // Tap-triggered focus on touch devices doesn't match :focus-visible,
@@ -324,7 +293,7 @@ export function AmenityShowcase({ amenities }: AmenityShowcaseProps) {
 
       <Reveal delay={amenities.length * SELECTOR_STAGGER_MS + 80}>
         <div>
-          <div className="relative aspect-video overflow-hidden rounded-3xl shadow-[0_32px_64px_-32px_rgba(11,28,44,0.35)] lg:aspect-21/9">
+          <div className="relative aspect-video overflow-hidden rounded-3xl shadow-[0_32px_64px_-32px_rgba(44,30,22,0.35)] lg:aspect-21/9">
             <CloudinaryImage
               src={active.image.publicId}
               alt={active.image.alt}
@@ -355,7 +324,7 @@ export function AmenityShowcase({ amenities }: AmenityShowcaseProps) {
                   <span
                     aria-hidden
                     className={cn(
-                      "block h-1.5 overflow-hidden rounded-full bg-navy/15 transition-[width] duration-300 ease-out",
+                      "block h-1.5 overflow-hidden rounded-full bg-white/20 transition-[width] duration-300 ease-out",
                       isActive ? "w-6" : "w-1.5"
                     )}
                   >
@@ -380,8 +349,8 @@ export function AmenityShowcase({ amenities }: AmenityShowcaseProps) {
               key={activeIndex}
               className="motion-safe:animate-[amenity-text-in_420ms_ease-out]"
             >
-              <h4 className="font-serif text-xl text-navy sm:text-2xl">{active.label}</h4>
-              <p className="mt-2 max-w-xl text-sm leading-relaxed text-navy/65 sm:text-base">
+              <h4 className="font-serif text-xl text-white sm:text-2xl">{active.label}</h4>
+              <p className="mt-2 max-w-xl text-sm leading-relaxed text-white/70 sm:text-base">
                 {active.description}
               </p>
             </div>

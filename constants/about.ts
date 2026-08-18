@@ -54,6 +54,11 @@ export const ABOUT_SERVICES: OfferingCard[] = [
   },
 ];
 
+export const AMENITIES_SECTION = {
+  eyebrow: "Amenities",
+  heading: "Signature Amenities",
+} as const;
+
 export const ABOUT_AMENITIES: AmenityItem[] = [
   {
     id: "clubhouse",

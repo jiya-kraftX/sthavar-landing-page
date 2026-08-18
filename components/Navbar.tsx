@@ -33,7 +33,7 @@ export function Navbar() {
       className={cn(
         "fixed inset-x-0 top-0 z-50 transition-colors duration-300",
         solid
-          ? "border-b border-navy/10 bg-cream/95 shadow-sm backdrop-blur-md"
+          ? "border-b border-pebble bg-cream/95 shadow-sm backdrop-blur-md"
           : "border-b border-transparent bg-transparent"
       )}
     >
@@ -57,19 +57,11 @@ export function Navbar() {
           />
           <span
             className={cn(
-              "font-serif text-xl leading-none tracking-wide",
-              solid ? "text-navy" : "text-white"
+              "font-serif text-base uppercase leading-none tracking-[0.2em]",
+              solid ? "text-espresso" : "text-white"
             )}
           >
-            {SITE.shortName}
-            <span
-              className={cn(
-                "block text-[0.6rem] font-sans font-medium uppercase tracking-[0.3em]",
-                solid ? "text-navy/60" : "text-white/70"
-              )}
-            >
-              Sthavar Group
-            </span>
+            Sthavar Group
           </span>
         </a>
 
@@ -80,7 +72,7 @@ export function Navbar() {
                 href={link.href}
                 className={cn(
                   "text-sm font-medium tracking-wide transition-colors",
-                  solid ? "text-navy/80 hover:text-gold-dark" : "text-white/85 hover:text-gold-light"
+                  solid ? "text-espresso/80 hover:text-gold-dark" : "text-white/85 hover:text-gold-light"
                 )}
               >
                 {link.label}
@@ -100,7 +92,7 @@ export function Navbar() {
           onClick={() => setMenuOpen((open) => !open)}
           className={cn(
             "flex h-10 w-10 items-center justify-center rounded-full transition-colors lg:hidden",
-            solid ? "text-navy" : "text-white"
+            solid ? "text-espresso" : "text-white"
           )}
           aria-label={menuOpen ? "Close menu" : "Open menu"}
           aria-expanded={menuOpen}
@@ -113,7 +105,7 @@ export function Navbar() {
       <div
         id="mobile-menu"
         className={cn(
-          "border-t border-navy/10 bg-cream transition-[max-height] duration-300 ease-out lg:hidden",
+          "border-t border-pebble bg-cream transition-[max-height] duration-300 ease-out lg:hidden",
           menuOpen
             ? "max-h-[calc(100dvh-5rem)] overflow-y-auto overscroll-contain [-webkit-overflow-scrolling:touch]"
             : "max-h-0 overflow-hidden border-t-0"
@@ -125,7 +117,7 @@ export function Navbar() {
               key={link.href}
               href={link.href}
               onClick={() => setMenuOpen(false)}
-              className="rounded-lg px-3 py-3 text-sm font-medium text-navy/80 transition-colors hover:bg-navy/5 hover:text-gold-dark"
+              className="rounded-lg px-3 py-3 text-sm font-medium text-espresso/80 transition-colors hover:bg-navy/5 hover:text-gold-dark"
             >
               {link.label}
             </a>

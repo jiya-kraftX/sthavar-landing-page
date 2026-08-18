@@ -56,7 +56,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0b1c2c",
+  themeColor: "#10262b",
   width: "device-width",
   initialScale: 1,
 };
@@ -72,7 +72,7 @@ export default function RootLayout({
       data-scroll-behavior="smooth"
       className={`${inter.variable} ${playfairDisplay.variable}`}
     >
-      <body className="min-h-full flex flex-col bg-cream text-navy antialiased">
+      <body className="min-h-full flex flex-col bg-cream text-espresso antialiased">
         <IntroLoader />
         {children}
         <Analytics />

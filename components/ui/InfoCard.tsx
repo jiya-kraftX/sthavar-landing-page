@@ -29,7 +29,7 @@ export function InfoCard({
         className={cn(
           "flex items-center gap-3 rounded-2xl border px-4 py-3 transition-all duration-300",
           tone === "light"
-            ? "border-navy/10 bg-white hover:border-gold/40 hover:shadow-[0_12px_30px_-16px_rgba(11,28,44,0.25)]"
+            ? "border-pebble bg-white hover:border-gold/40 hover:shadow-[0_12px_30px_-16px_rgba(44,30,22,0.25)]"
             : "border-white/10 bg-white/5 backdrop-blur-md hover:border-gold-light/40 hover:bg-white/10",
           className
         )}
@@ -45,7 +45,7 @@ export function InfoCard({
         <span
           className={cn(
             "text-sm font-medium",
-            tone === "light" ? "text-navy/85" : "text-white/85"
+            tone === "light" ? "text-espresso/85" : "text-white/85"
           )}
         >
           {title}
@@ -59,7 +59,7 @@ export function InfoCard({
       className={cn(
         "group flex flex-col gap-4 rounded-3xl border p-7 transition-all duration-300 hover:-translate-y-1",
         tone === "light"
-          ? "border-navy/10 bg-white shadow-[0_16px_40px_-28px_rgba(11,28,44,0.3)] hover:border-gold/40 hover:shadow-[0_24px_48px_-24px_rgba(11,28,44,0.3)]"
+          ? "border-pebble bg-white shadow-[0_16px_40px_-28px_rgba(44,30,22,0.3)] hover:border-gold/40 hover:shadow-[0_24px_48px_-24px_rgba(44,30,22,0.3)]"
           : "border-white/10 bg-white/5 backdrop-blur-md hover:border-gold-light/40 hover:bg-white/[0.08]",
         className
       )}
@@ -76,7 +76,7 @@ export function InfoCard({
         <h3
           className={cn(
             "font-serif text-lg",
-            tone === "light" ? "text-navy" : "text-white"
+            tone === "light" ? "text-espresso" : "text-white"
           )}
         >
           {title}
@@ -85,7 +85,7 @@ export function InfoCard({
           <p
             className={cn(
               "text-sm leading-relaxed",
-              tone === "light" ? "text-navy/65" : "text-white/65"
+              tone === "light" ? "text-espresso/65" : "text-white/65"
             )}
           >
             {description}

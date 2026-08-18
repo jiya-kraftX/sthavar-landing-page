@@ -26,8 +26,8 @@ const BASE_STYLES =
 
 const VARIANT_STYLES: Record<ButtonVariant, string> = {
   primary:
-    "bg-gold text-navy shadow-[0_8px_30px_-8px_rgba(198,161,91,0.55)] hover:bg-gold-light hover:shadow-[0_12px_36px_-8px_rgba(198,161,91,0.7)]",
-  secondary: "border border-navy/30 text-navy hover:border-navy hover:bg-navy hover:text-white",
+    "bg-gold text-espresso shadow-[0_8px_30px_-8px_rgba(224,194,128,0.55)] hover:bg-gold-light hover:shadow-[0_12px_36px_-8px_rgba(224,194,128,0.7)]",
+  secondary: "border border-bronze/40 text-espresso hover:border-bronze hover:bg-bronze hover:text-white",
   ghost: "border border-white/40 text-white hover:border-white hover:bg-white/10",
 };
 
