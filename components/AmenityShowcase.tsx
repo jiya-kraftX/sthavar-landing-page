@@ -293,7 +293,7 @@ export function AmenityShowcase({ amenities }: AmenityShowcaseProps) {
 
       <Reveal delay={amenities.length * SELECTOR_STAGGER_MS + 80}>
         <div>
-          <div className="relative aspect-video overflow-hidden rounded-3xl shadow-[0_32px_64px_-32px_rgba(44,30,22,0.35)] lg:aspect-21/9">
+          <div className="relative aspect-16/8 overflow-hidden rounded-3xl shadow-[0_32px_64px_-32px_rgba(44,30,22,0.35)] sm:aspect-16/6 lg:aspect-32/9">
             <CloudinaryImage
               src={active.image.publicId}
               alt={active.image.alt}

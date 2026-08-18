@@ -6,7 +6,7 @@ import { WHY_DAPOLI, WHY_DAPOLI_GALLERY, WHY_DAPOLI_HIGHLIGHTS } from "@/constan
 
 export function WhyDapoli() {
   return (
-    <section id="why-dapoli" className="bg-cream py-24 sm:py-28">
+    <section id="why-dapoli" className="bg-cream py-12 sm:py-16">
       <Container>
         <Reveal>
           <SectionHeading
@@ -20,7 +20,7 @@ export function WhyDapoli() {
         </Reveal>
       </Container>
 
-      <div className="mt-12 sm:mt-14">
+      <div className="mt-8 sm:mt-10">
         <WhyDapoliShowcase images={WHY_DAPOLI_GALLERY} highlights={WHY_DAPOLI_HIGHLIGHTS} />
       </div>
     </section>
