@@ -1,6 +1,6 @@
 import type { ContactDetail } from "@/types";
 
-const WHATSAPP_GREETING = "Hi, welcome to Sapphire by Sthavar! How can we help you?";
+const WHATSAPP_GREETING = "Hi, welcome to Sapphire. How can we help you?";
 const WHATSAPP_HREF = `https://wa.me/917249394599?text=${encodeURIComponent(WHATSAPP_GREETING)}`;
 
 export const CONTACT_SECTION = {

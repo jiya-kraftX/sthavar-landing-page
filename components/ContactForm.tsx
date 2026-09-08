@@ -8,7 +8,7 @@ const WHATSAPP_NUMBER = "917249394599";
 const INDIAN_MOBILE_PATTERN = /^[6-9]\d{9}$/;
 
 function buildWhatsAppUrl(name: string, phone: string): string {
-  const message = `Hi, welcome to Sapphire by Sthavar! 👋\n\nName: ${name}\nPhone: ${phone}\n\nHow can we help you?`;
+  const message = `Hi, I am ${name}.\n\nMy phone number is ${phone}.\n\nI am interested in Sapphire by Sthavar Group and would like to know more.`;
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 }
 
