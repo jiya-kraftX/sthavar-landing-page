@@ -1,7 +1,11 @@
 import type { ContactDetail } from "@/types";
 
-const WHATSAPP_GREETING = "Hi, welcome to Sapphire. How can we help you?";
-const WHATSAPP_HREF = `https://wa.me/917249394599?text=${encodeURIComponent(WHATSAPP_GREETING)}`;
+// No prefilled text: a wa.me `?text=` param always appears as a message sent
+// from the visitor, not the owner. The welcome message ("Hi, welcome to
+// Sapphire. How can we help you?") should instead be configured as a
+// greeting message / auto-reply on the owner's WhatsApp Business account, so
+// it genuinely comes from the business side once the chat opens.
+const WHATSAPP_HREF = "https://wa.me/917249394599";
 
 export const CONTACT_SECTION = {
   eyebrow: "Contact",
