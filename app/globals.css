@@ -1,24 +1,29 @@
 @import "tailwindcss";
 
 :root {
-  /* Secondary (30%) — dark espresso brown: headers, nav, text, deep sections */
-  --color-navy: #2c1e16;
-  --color-navy-light: #3f2c21;
-  --color-navy-dark: #1a110c;
-  /* Accent (10%) — pale champagne gold: buttons, active states, borders */
-  --color-gold: #e0c280;
-  --color-gold-light: #ead3a0;
-  --color-gold-dark: #b89355;
-  /* Supporting tone — terracotta/bronze brown */
-  --color-bronze: #a85c3b;
-  --color-bronze-light: #c67d57;
-  /* Dominant (60%) — soft warm cream, primary page background */
-  --color-cream: #f5efee;
-  /* Dark text — matches the espresso secondary */
-  --color-espresso: #2c1e16;
-  /* Muted neutral */
-  --color-pebble: #d8d2c4;
-  --color-ink: #171717;
+  /* Primary — approved Sapphire Blue: headers, nav, text, deep sections */
+  --color-navy: #00135f;
+  --color-navy-light: #404e87;
+  --color-navy-dark: #000c3e;
+  /* Accent — approved Gold: buttons, active states, borders */
+  --color-gold: #d4af37;
+  --color-gold-light: #dfc369;
+  --color-gold-dark: #947b27;
+  /* Supporting tone — deeper gold variant (kept within the gold family, no brown) */
+  --color-bronze: #a6812b;
+  --color-bronze-light: #c9a54d;
+  /* Dominant — approved White, primary page background */
+  --color-cream: #ffffff;
+  /* Dark text — matches the sapphire blue primary */
+  --color-espresso: #00135f;
+  /* Muted neutral — light tint of sapphire blue, for borders */
+  --color-pebble: #e6e7ef;
+  --color-ink: #000c3e;
+
+  /* Fixed navbar height — matches Navbar.tsx's `h-20` exactly. Referenced by
+     the Hero section so it can sit below the header instead of guessing a
+     viewport-based offset. */
+  --header-height: 5rem;
 }
 
 @theme inline {
@@ -96,5 +101,87 @@ section[id] {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes modal-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Intro loader — scene 1 (English wordmark), 0.8s in / hold / 0.6s out over 3s */
+@keyframes intro-logo-1 {
+  0% {
+    opacity: 0;
+    transform: translateY(10px) scale(0.96);
+  }
+  26.667% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  80% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(0) scale(1.02);
+  }
+}
+
+/* Intro loader — scene 2 (Devanagari wordmark), 0.7s in / hold / 0.6s out over 3s */
+@keyframes intro-logo-2 {
+  0% {
+    opacity: 0;
+    transform: translateY(10px) scale(0.96);
+  }
+  23.333% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  80% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(0) scale(1.02);
+  }
+}
+
+/* Reduced-motion variants — opacity only, same timing, no scale/movement */
+@keyframes intro-logo-1-reduced {
+  0% {
+    opacity: 0;
+  }
+  26.667% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes intro-logo-2-reduced {
+  0% {
+    opacity: 0;
+  }
+  23.333% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
   }
 }

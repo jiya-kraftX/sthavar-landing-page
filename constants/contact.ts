@@ -1,5 +1,8 @@
 import type { ContactDetail } from "@/types";
 
+const WHATSAPP_GREETING = "Hi, welcome to Sapphire by Sthavar! How can we help you?";
+const WHATSAPP_HREF = `https://wa.me/917249394599?text=${encodeURIComponent(WHATSAPP_GREETING)}`;
+
 export const CONTACT_SECTION = {
   eyebrow: "Contact",
   heading: "Begin Your Sapphire Journey",
@@ -19,10 +22,10 @@ export const CONTACT_DETAILS: ContactDetail[] = [
     value: "Dapoli, Ratnagiri District, Maharashtra",
   },
   {
-    icon: "phone",
-    label: "Phone",
-    value: "+91 97697 34866",
-    href: "tel:+919769734866",
+    icon: "whatsapp",
+    label: "WhatsApp",
+    value: "+91 72493 94599",
+    href: WHATSAPP_HREF,
   },
   {
     icon: "envelope",

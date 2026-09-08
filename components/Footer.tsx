@@ -73,17 +73,25 @@ export function Footer() {
             Contact
           </h3>
           <ul className="flex flex-col gap-2.5">
-            {CONTACT_DETAILS.map((detail) => (
-              <li key={detail.label} className="text-xs text-white/70">
-                {detail.href ? (
-                  <a href={detail.href} className="transition-colors hover:text-white">
-                    {detail.value}
-                  </a>
-                ) : (
-                  detail.value
-                )}
-              </li>
-            ))}
+            {CONTACT_DETAILS.map((detail) => {
+              const external = detail.href?.startsWith("https://");
+              return (
+                <li key={detail.label} className="text-xs text-white/70">
+                  {detail.href ? (
+                    <a
+                      href={detail.href}
+                      target={external ? "_blank" : undefined}
+                      rel={external ? "noopener noreferrer" : undefined}
+                      className="transition-colors hover:text-white"
+                    >
+                      {detail.value}
+                    </a>
+                  ) : (
+                    detail.value
+                  )}
+                </li>
+              );
+            })}
           </ul>
         </div>
       </Container>

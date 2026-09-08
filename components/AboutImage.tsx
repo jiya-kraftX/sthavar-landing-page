@@ -23,7 +23,7 @@ export function AboutImage({ image }: AboutImageProps) {
   return (
     <div
       ref={ref}
-      className="relative aspect-4/5 overflow-hidden rounded-3xl shadow-[0_40px_80px_-28px_rgba(44,30,22,0.4)] ring-1 ring-gold/20"
+      className="relative aspect-4/5 overflow-hidden rounded-3xl shadow-[0_40px_80px_-28px_rgba(0,19,95,0.4)] ring-1 ring-gold/20"
     >
       <CloudinaryImage
         src={image.publicId}

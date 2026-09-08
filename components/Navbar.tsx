@@ -31,10 +31,8 @@ export function Navbar() {
   return (
     <header
       className={cn(
-        "fixed inset-x-0 top-0 z-50 transition-colors duration-300",
-        solid
-          ? "border-b border-pebble bg-cream/95 shadow-sm backdrop-blur-md"
-          : "border-b border-transparent bg-transparent"
+        "fixed inset-x-0 top-0 z-50 bg-navy transition-shadow duration-300",
+        solid ? "border-b border-white/10 shadow-md" : "border-b border-transparent"
       )}
     >
       <Container as="nav" className="flex h-20 items-center justify-between">
@@ -55,12 +53,7 @@ export function Navbar() {
             fallbackVariant="compact"
             fallbackIcon="sparkle"
           />
-          <span
-            className={cn(
-              "font-serif text-base uppercase leading-none tracking-[0.2em]",
-              solid ? "text-espresso" : "text-white"
-            )}
-          >
+          <span className="font-serif text-base uppercase leading-none tracking-[0.2em] text-white">
             Sthavar Group
           </span>
         </a>
@@ -70,10 +63,7 @@ export function Navbar() {
             <li key={link.href}>
               <a
                 href={link.href}
-                className={cn(
-                  "text-sm font-medium tracking-wide transition-colors",
-                  solid ? "text-espresso/80 hover:text-gold-dark" : "text-white/85 hover:text-gold-light"
-                )}
+                className="text-sm font-medium tracking-wide text-white/85 transition-colors hover:text-gold"
               >
                 {link.label}
               </a>
@@ -90,10 +80,7 @@ export function Navbar() {
         <button
           type="button"
           onClick={() => setMenuOpen((open) => !open)}
-          className={cn(
-            "flex h-10 w-10 items-center justify-center rounded-full transition-colors lg:hidden",
-            solid ? "text-espresso" : "text-white"
-          )}
+          className="flex h-10 w-10 items-center justify-center rounded-full text-white transition-colors lg:hidden"
           aria-label={menuOpen ? "Close menu" : "Open menu"}
           aria-expanded={menuOpen}
           aria-controls="mobile-menu"
@@ -105,7 +92,7 @@ export function Navbar() {
       <div
         id="mobile-menu"
         className={cn(
-          "border-t border-pebble bg-cream transition-[max-height] duration-300 ease-out lg:hidden",
+          "border-t border-white/10 bg-navy transition-[max-height] duration-300 ease-out lg:hidden",
           menuOpen
             ? "max-h-[calc(100dvh-5rem)] overflow-y-auto overscroll-contain [-webkit-overflow-scrolling:touch]"
             : "max-h-0 overflow-hidden border-t-0"
@@ -117,7 +104,7 @@ export function Navbar() {
               key={link.href}
               href={link.href}
               onClick={() => setMenuOpen(false)}
-              className="rounded-lg px-3 py-3 text-sm font-medium text-espresso/80 transition-colors hover:bg-navy/5 hover:text-gold-dark"
+              className="rounded-lg px-3 py-3 text-sm font-medium text-white/80 transition-colors hover:bg-white/5 hover:text-gold"
             >
               {link.label}
             </a>

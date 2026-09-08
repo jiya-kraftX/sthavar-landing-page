@@ -1,31 +1,41 @@
 import { Button } from "@/components/ui/Button";
-import { CloudinaryImage } from "@/components/ui/CloudinaryImage";
 import { Container } from "@/components/ui/Container";
 import { Icon } from "@/components/ui/Icon";
 import { Reveal } from "@/components/ui/Reveal";
-import { HERO } from "@/constants/hero";
-import { IMAGES } from "@/constants/images";
+import { HERO, HERO_VIDEO_SRC } from "@/constants/hero";
 
 export function Hero() {
   return (
     <section
       id="home"
-      className="relative flex min-h-screen items-center overflow-hidden bg-navy"
+      className="relative mt-[var(--header-height)] flex min-h-[calc(100vh-var(--header-height))] items-center overflow-hidden bg-navy"
     >
-      <CloudinaryImage
-        src={IMAGES.hero.publicId}
-        alt={IMAGES.hero.alt}
-        fill
-        priority
-        sizes="100vw"
-        className="object-cover"
-        fallbackVariant="panel"
-      />
+      {HERO_VIDEO_SRC ? (
+        <video
+          className="absolute inset-0 h-full w-full object-cover"
+          autoPlay
+          muted
+          loop
+          playsInline
+          aria-hidden
+        >
+          <source src={HERO_VIDEO_SRC} type="video/mp4" />
+        </video>
+      ) : null}
+      {/*
+        Legibility + mood layer. Sits above the video (once HERO_VIDEO_SRC is
+        set) exactly as it does now over the plain navy background — a soft
+        depth gradient in navy tones plus a whisper of gold, so the Hero never
+        reads as a flat, empty placeholder while the final video is pending.
+      */}
       <div
-        className="absolute inset-0 bg-linear-to-t from-navy via-navy/70 to-navy/40"
+        className="absolute inset-0 bg-[radial-gradient(120%_100%_at_20%_25%,var(--color-navy-light)_0%,var(--color-navy)_55%,var(--color-navy-dark)_100%)]"
         aria-hidden
       />
-      <div className="absolute inset-0 bg-navy/30" aria-hidden />
+      <div
+        className="absolute inset-0 bg-[radial-gradient(45%_60%_at_15%_60%,rgba(212,175,55,0.10)_0%,transparent_70%)]"
+        aria-hidden
+      />
 
       <Container className="relative z-10 pt-24 pb-20">
         <Reveal className="flex max-w-3xl flex-col gap-6">

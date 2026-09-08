@@ -133,7 +133,7 @@ export function WhyDapoliShowcase({ images, highlights }: WhyDapoliShowcaseProps
       <div className="mx-auto w-full max-w-[1600px] px-4 sm:px-6 lg:px-10">
         <div
           ref={ref}
-          className="relative aspect-16/8 w-full overflow-hidden rounded-[1.75rem] shadow-[0_40px_80px_-28px_rgba(44,30,22,0.35)] ring-1 ring-gold/25 sm:aspect-16/6 lg:aspect-32/9"
+          className="relative aspect-16/8 w-full overflow-hidden rounded-[1.75rem] shadow-[0_40px_80px_-28px_rgba(0,19,95,0.35)] ring-1 ring-gold/25 sm:aspect-16/6 lg:aspect-32/9"
           style={{
             clipPath: `inset(0 ${(1 - effectiveScrollReveal) * 100}% 0 0)`,
             transition: reducedMotion ? undefined : "clip-path 80ms linear",
@@ -161,7 +161,7 @@ export function WhyDapoliShowcase({ images, highlights }: WhyDapoliShowcaseProps
                     gridInView && !reducedMotion ? `${index * BOX_STAGGER_MS}ms` : "0ms",
                 }}
               >
-                <div className="group flex h-full flex-col gap-4 rounded-2xl border border-pebble bg-white p-6 shadow-[0_16px_36px_-28px_rgba(44,30,22,0.35)] transition-all duration-300 hover:-translate-y-1 hover:border-gold/40 hover:shadow-[0_20px_40px_-24px_rgba(44,30,22,0.35)]">
+                <div className="group flex h-full flex-col gap-4 rounded-2xl border border-pebble bg-white p-6 shadow-[0_16px_36px_-28px_rgba(0,19,95,0.35)] transition-all duration-300 hover:-translate-y-1 hover:border-gold/40 hover:shadow-[0_20px_40px_-24px_rgba(0,19,95,0.35)]">
                   <div className="flex items-center justify-between">
                     <span className="flex h-11 w-11 items-center justify-center rounded-full bg-bronze/15 text-bronze transition-transform duration-300 group-hover:scale-105">
                       <Icon name={item.icon} className="h-5 w-5" />
