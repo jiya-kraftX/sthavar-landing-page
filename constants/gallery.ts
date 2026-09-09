@@ -12,6 +12,9 @@ export const GALLERY_SECTION = {
  * Cloudinary public IDs for the gallery grid. Swap these for real assets
  * once uploaded — the `featured` flag controls which tiles render larger
  * in the bento-style layout.
+ *
+ * `version`: bump whenever an asset is RE-UPLOADED under the same public ID,
+ * otherwise Cloudinary's `immutable` CDN cache keeps serving the old file.
  */
 export const GALLERY_IMAGES: GalleryImage[] = [
   {
@@ -30,26 +33,28 @@ export const GALLERY_IMAGES: GalleryImage[] = [
     height: 800,
   },
   {
-    publicId: "private_swimming_pool_g2ti4n",
+    publicId: "private_swimming_pool",
     title: "Private Swimming Pool",
     alt: "Private swimming pool at a Sapphire residence",
     width: 800,
     height: 800,
   },
   {
-    publicId: "clubhouse_ftoq69",
+    publicId: "clubhouse",
     title: "Clubhouse",
     alt: "Sapphire clubhouse interior lounge",
     width: 800,
     height: 800,
+    version: 2,
   },
   {
-    publicId: "pickleball_unirbv",
+    publicId: "pickleball",
     title: "Pickleball Court",
     alt: "Pickleball court within the Sapphire community",
     width: 800,
     height: 800,
     featured: true,
+    version: 2,
   },
   {
     publicId: "seaview_negexu",
@@ -59,7 +64,7 @@ export const GALLERY_IMAGES: GalleryImage[] = [
     height: 800,
   },
   {
-    publicId: "landscape_open_spaces_gdzyyu",
+    publicId: "landscape_open_spaces",
     title: "Landscaped Open Spaces",
     alt: "Landscaped open spaces across the Sapphire community",
     width: 800,
@@ -67,7 +72,7 @@ export const GALLERY_IMAGES: GalleryImage[] = [
   },
   {
     publicId: "seafacing_rowhouse_xvhmxe",
-    title: "Sea-Facing Rowhouse",
+    title: "Mountain View",
     alt: "Sea facing rowhouse facade at Sapphire",
     width: 800,
     height: 800,

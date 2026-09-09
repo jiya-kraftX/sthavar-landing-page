@@ -297,6 +297,7 @@ export function AmenityShowcase({ amenities }: AmenityShowcaseProps) {
             <CloudinaryImage
               src={active.image.publicId}
               alt={active.image.alt}
+              version={active.image.version}
               fill
               sizes="(min-width: 1024px) 70vw, 100vw"
               className="object-cover"

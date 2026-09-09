@@ -1,3 +1,4 @@
+import { SiteVisitButton } from "@/components/SiteVisitButton";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { Icon } from "@/components/ui/Icon";
@@ -8,7 +9,7 @@ export function Hero() {
   return (
     <section
       id="home"
-      className="relative mt-[var(--header-height)] flex min-h-[calc(100vh-var(--header-height))] items-center overflow-hidden bg-navy"
+      className="relative flex min-h-screen items-center overflow-hidden bg-navy"
     >
       {HERO_VIDEO_SRC ? (
         <video
@@ -39,19 +40,21 @@ export function Hero() {
 
       <Container className="relative z-10 pt-24 pb-20">
         <Reveal className="flex max-w-3xl flex-col gap-6">
-          <span className="text-xs font-semibold uppercase tracking-[0.35em] text-gold-light">
-            {HERO.kicker}
-          </span>
-          <h1 className="font-serif text-4xl leading-[1.1] text-white sm:text-5xl lg:text-6xl">
-            {HERO.headline}
-          </h1>
+          <div className="flex flex-col gap-3">
+            <h1 className="font-serif text-4xl uppercase leading-[1.1] tracking-[0.04em] text-white sm:text-5xl lg:text-6xl">
+              {HERO.kicker}
+            </h1>
+            <p className="text-sm font-semibold uppercase tracking-[0.3em] text-gold-light sm:text-base">
+              {HERO.headline}
+            </p>
+          </div>
           <p className="max-w-2xl text-base leading-relaxed text-white/80 sm:text-lg">
             {HERO.subheadline}
           </p>
           <div className="mt-4 flex flex-col gap-4 sm:flex-row">
-            <Button href="#contact" variant="primary">
+            <SiteVisitButton variant="primary">
               {HERO.primaryCtaLabel}
-            </Button>
+            </SiteVisitButton>
             <Button href="#why-sapphire" variant="ghost">
               {HERO.secondaryCtaLabel}
             </Button>

@@ -1,5 +1,5 @@
 import { AboutImage } from "@/components/AboutImage";
-import { Button } from "@/components/ui/Button";
+import { SiteVisitButton } from "@/components/SiteVisitButton";
 import { Container } from "@/components/ui/Container";
 import { InfoCard } from "@/components/ui/InfoCard";
 import { Reveal } from "@/components/ui/Reveal";
@@ -28,9 +28,7 @@ export function About() {
               ))}
             </div>
             <div>
-              <Button href="#contact" variant="primary">
-                {ABOUT.ctaLabel}
-              </Button>
+              <SiteVisitButton variant="primary">{ABOUT.ctaLabel}</SiteVisitButton>
             </div>
           </Reveal>
         </div>

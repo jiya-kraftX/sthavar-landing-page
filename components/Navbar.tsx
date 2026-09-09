@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { PiList, PiX } from "react-icons/pi";
+import { useEnquiry } from "@/components/EnquiryProvider";
 import { Button } from "@/components/ui/Button";
 import { CloudinaryImage } from "@/components/ui/CloudinaryImage";
 import { Container } from "@/components/ui/Container";
@@ -14,6 +15,11 @@ import { cn } from "@/utils/cn";
 export function Navbar() {
   const scrolled = useScrollPosition(24);
   const [menuOpen, setMenuOpen] = useState(false);
+  const { openEnquiry } = useEnquiry();
+  // The header is hidden on initial load (over the Hero) and slides down once
+  // the visitor starts scrolling. It's `fixed`, so hiding it reserves no space
+  // and causes no layout shift.
+  const visible = scrolled || menuOpen;
   const solid = scrolled || menuOpen;
 
   useEffect(() => {
@@ -30,8 +36,13 @@ export function Navbar() {
 
   return (
     <header
+      aria-hidden={!visible}
+      inert={!visible}
       className={cn(
-        "fixed inset-x-0 top-0 z-50 bg-navy transition-shadow duration-300",
+        "fixed inset-x-0 top-0 z-50 bg-navy transition-[transform,opacity,box-shadow] duration-500 ease-out motion-reduce:transition-none",
+        visible
+          ? "translate-y-0 opacity-100"
+          : "-translate-y-full opacity-0 pointer-events-none",
         solid ? "border-b border-white/10 shadow-md" : "border-b border-transparent"
       )}
     >
@@ -72,7 +83,12 @@ export function Navbar() {
         </ul>
 
         <div className="hidden lg:block">
-          <Button href="#contact" variant="primary" className="px-6 py-3 text-xs">
+          <Button
+            type="button"
+            variant="primary"
+            className="px-6 py-3 text-xs"
+            onClick={openEnquiry}
+          >
             {NAV_CTA_LABEL}
           </Button>
         </div>
@@ -109,7 +125,15 @@ export function Navbar() {
               {link.label}
             </a>
           ))}
-          <Button href="#contact" variant="primary" className="mt-2 w-full" onClick={() => setMenuOpen(false)}>
+          <Button
+            type="button"
+            variant="primary"
+            className="mt-2 w-full"
+            onClick={() => {
+              setMenuOpen(false);
+              openEnquiry();
+            }}
+          >
             {NAV_CTA_LABEL}
           </Button>
         </Container>

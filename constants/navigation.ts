@@ -13,8 +13,8 @@ export const NAV_LINKS: NavLink[] = [
 export const NAV_CTA_LABEL = "Book Site Visit";
 
 export const SOCIAL_LINKS: SocialLink[] = [
-  { label: "Instagram", href: "https://instagram.com", icon: "instagram" },
-  { label: "Facebook", href: "https://facebook.com", icon: "facebook" },
+  { label: "Instagram", href: "https://www.instagram.com/sthavargroup", icon: "instagram" },
+  { label: "Facebook", href: "https://www.facebook.com/share/19LCB7q4xL/", icon: "facebook" },
   { label: "LinkedIn", href: "https://linkedin.com", icon: "linkedin" },
   {
     label: "WhatsApp",

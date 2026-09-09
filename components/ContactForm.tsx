@@ -4,7 +4,7 @@ import { useCallback, useState, type FormEvent } from "react";
 import { Button } from "@/components/ui/Button";
 import { Icon } from "@/components/ui/Icon";
 
-const WHATSAPP_NUMBER = "917249394599";
+const WHATSAPP_NUMBER = "919769734866";
 const INDIAN_MOBILE_PATTERN = /^[6-9]\d{9}$/;
 
 function buildWhatsAppUrl(name: string, phone: string): string {
@@ -35,8 +35,13 @@ export function ContactForm({ onSuccess }: ContactFormProps = {}) {
         return;
       }
 
+      if (!trimmedPhone) {
+        setError("Please enter your phone number.");
+        return;
+      }
+
       if (!INDIAN_MOBILE_PATTERN.test(trimmedPhone)) {
-        setError("Please enter a valid 10-digit Indian mobile number.");
+        setError("Please enter a valid phone number.");
         return;
       }
 

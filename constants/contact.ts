@@ -5,7 +5,7 @@ import type { ContactDetail } from "@/types";
 // Sapphire. How can we help you?") should instead be configured as a
 // greeting message / auto-reply on the owner's WhatsApp Business account, so
 // it genuinely comes from the business side once the chat opens.
-const WHATSAPP_HREF = "https://wa.me/917249394599";
+const WHATSAPP_HREF = "https://wa.me/919769734866";
 
 export const CONTACT_SECTION = {
   eyebrow: "Contact",
@@ -28,7 +28,7 @@ export const CONTACT_DETAILS: ContactDetail[] = [
   {
     icon: "whatsapp",
     label: "WhatsApp",
-    value: "+91 72493 94599",
+    value: "+91 97697 34866",
     href: WHATSAPP_HREF,
   },
   {

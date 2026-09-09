@@ -4,6 +4,9 @@ import type { ImageAsset } from "@/types";
  * Cloudinary public IDs. Swap these for real assets uploaded to the
  * `NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME` account — folder structure mirrors
  * the section each image belongs to.
+ *
+ * `version`: bump whenever an asset is RE-UPLOADED under the same public ID,
+ * otherwise Cloudinary's `immutable` CDN cache keeps serving the old file.
  */
 export const IMAGES = {
   hero: {
@@ -47,6 +50,7 @@ export const IMAGES = {
     alt: "Clubhouse at Sapphire by Sthavar Group",
     width: 1600,
     height: 1200,
+    version: 2,
   },
   swimmingPool: {
     publicId: "private_swimming_pool",
@@ -59,6 +63,7 @@ export const IMAGES = {
     alt: "Pickleball court at Sapphire by Sthavar Group",
     width: 1600,
     height: 1200,
+    version: 2,
   },
   gym: {
     publicId: "gym",

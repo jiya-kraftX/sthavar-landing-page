@@ -70,6 +70,7 @@ export function GalleryShowcase({ images }: GalleryShowcaseProps) {
               <CloudinaryImage
                 src={image.publicId}
                 alt={image.alt}
+                version={image.version}
                 fill
                 sizes="(min-width: 1024px) 30vw, 72vw"
                 className="object-cover"

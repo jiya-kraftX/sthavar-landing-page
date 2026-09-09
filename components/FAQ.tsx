@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Button } from "@/components/ui/Button";
+import { SiteVisitButton } from "@/components/SiteVisitButton";
 import { Container } from "@/components/ui/Container";
 import { Icon } from "@/components/ui/Icon";
 import { Reveal } from "@/components/ui/Reveal";
@@ -76,9 +76,7 @@ export function FAQ() {
         </div>
 
         <Reveal className="mt-14 flex justify-center">
-          <Button href="#contact" variant="primary">
-            {FAQ_SECTION.ctaLabel}
-          </Button>
+          <SiteVisitButton variant="primary">{FAQ_SECTION.ctaLabel}</SiteVisitButton>
         </Reveal>
       </Container>
     </section>

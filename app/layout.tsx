@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
 import { Analytics } from "@/components/Analytics";
+import { EnquiryProvider } from "@/components/EnquiryProvider";
 import { IntroLoader } from "@/components/IntroLoader";
 import { SITE } from "@/constants/site";
 import "./globals.css";
@@ -74,7 +75,7 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col bg-cream text-espresso antialiased">
         <IntroLoader />
-        {children}
+        <EnquiryProvider>{children}</EnquiryProvider>
         <Analytics />
       </body>
     </html>
