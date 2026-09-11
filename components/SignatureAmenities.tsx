@@ -21,7 +21,7 @@ export function SignatureAmenities() {
 
       {/* Same wider max-width treatment as the Why Dapoli image, rather
           than the standard Container, so both full-width visuals match. */}
-      <div className="mx-auto mt-8 w-full max-w-[1600px] px-4 sm:px-6 lg:px-10">
+      <div className="mx-auto mt-8 w-full max-w-[1920px] px-4 sm:px-6 lg:px-10 2xl:px-14">
         <AmenityShowcase amenities={ABOUT_AMENITIES} />
       </div>
     </section>

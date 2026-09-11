@@ -50,7 +50,7 @@ function PanImage({ image, reducedMotion }: PanImageProps) {
       src={image.publicId}
       alt={image.alt}
       fill
-      sizes="94vw"
+      sizes="(min-width: 1920px) 1850px, 94vw"
       className="object-cover"
       style={style}
     />
@@ -61,7 +61,6 @@ export function WhyDapoliShowcase({ images, highlights }: WhyDapoliShowcaseProps
   const reducedMotion = useReducedMotion();
   const { ref, inView } = useInView<HTMLDivElement>();
   const [activeImageIndex, setActiveImageIndex] = useState(0);
-  const [scrollReveal, setScrollReveal] = useState(0);
 
   // Cycles to the next image every CYCLE_MS once the showcase has been
   // seen, and — like the Amenities autoplay — keeps running on its own
@@ -80,6 +79,11 @@ export function WhyDapoliShowcase({ images, highlights }: WhyDapoliShowcaseProps
   // clip-path opens it left-to-right in direct sync with scroll position
   // — not a fixed-duration transition, but tied continuously to how far
   // scrolled it currently is, and reversible if the user scrolls back up.
+  //
+  // Written straight to the DOM node (not React state): a scroll handler
+  // firing on every rAF-throttled tick would otherwise re-render this whole
+  // component — including the highlight cards below — dozens of times per
+  // second while the frame is in range.
   useEffect(() => {
     if (reducedMotion) return;
 
@@ -94,7 +98,8 @@ export function WhyDapoliShowcase({ images, highlights }: WhyDapoliShowcaseProps
       const start = viewportHeight * 0.85;
       const end = viewportHeight * 0.45;
       const raw = (start - rect.top) / (start - end);
-      setScrollReveal(Math.min(1, Math.max(0, raw)));
+      const reveal = Math.min(1, Math.max(0, raw));
+      frame.style.clipPath = `inset(0 ${(1 - reveal) * 100}% 0 0)`;
       ticking = false;
     };
 
@@ -123,21 +128,21 @@ export function WhyDapoliShowcase({ images, highlights }: WhyDapoliShowcaseProps
   });
 
   const activeImage = images[activeImageIndex] ?? images[0];
-  const effectiveScrollReveal = reducedMotion ? 1 : scrollReveal;
 
   return (
     <div className="flex flex-col gap-12 sm:gap-14">
       {/* Its own wider max-width (rather than the shared Container's) so
           the photo reads as noticeably larger/more dominant than the rest
           of the section — capped, so it can never exceed the viewport. */}
-      <div className="mx-auto w-full max-w-[1600px] px-4 sm:px-6 lg:px-10">
+      <div className="mx-auto w-full max-w-[1920px] px-4 sm:px-6 lg:px-10 2xl:px-14">
         <div
           ref={ref}
           className="relative aspect-16/8 w-full overflow-hidden rounded-[1.75rem] shadow-[0_40px_80px_-28px_rgba(0,19,95,0.35)] ring-1 ring-gold/25 sm:aspect-16/6 lg:aspect-32/9"
-          style={{
-            clipPath: `inset(0 ${(1 - effectiveScrollReveal) * 100}% 0 0)`,
-            transition: reducedMotion ? undefined : "clip-path 80ms linear",
-          }}
+          style={
+            reducedMotion
+              ? { clipPath: "inset(0 0% 0 0)" }
+              : { clipPath: "inset(0 100% 0 0)", transition: "clip-path 80ms linear" }
+          }
         >
           {inView && activeImage ? (
             <PanImage key={activeImageIndex} image={activeImage} reducedMotion={reducedMotion} />
@@ -153,7 +158,7 @@ export function WhyDapoliShowcase({ images, highlights }: WhyDapoliShowcaseProps
               <div
                 key={item.id}
                 className={cn(
-                  "transition-all duration-700 ease-out",
+                  "transition-[transform,opacity] duration-700 ease-out",
                   revealed ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"
                 )}
                 style={{

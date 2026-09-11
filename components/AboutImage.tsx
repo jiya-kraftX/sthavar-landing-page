@@ -29,7 +29,7 @@ export function AboutImage({ image }: AboutImageProps) {
         src={image.publicId}
         alt={image.alt}
         fill
-        sizes="(min-width: 1024px) 40vw, 90vw"
+        sizes="(min-width: 1800px) 780px, (min-width: 1024px) 40vw, 90vw"
         className="object-cover"
         style={
           reducedMotion

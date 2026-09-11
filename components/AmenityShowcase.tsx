@@ -100,7 +100,7 @@ interface AmenitySelectorButtonProps {
   index: number;
   isActive: boolean;
   reducedMotion: boolean;
-  progress: number;
+  progressFillRef: (node: HTMLSpanElement | null) => void;
   onSelect: (index: number) => void;
 }
 
@@ -109,7 +109,7 @@ function AmenitySelectorButton({
   index,
   isActive,
   reducedMotion,
-  progress,
+  progressFillRef,
   onSelect,
 }: AmenitySelectorButtonProps) {
   const [ripple, setRipple] = useState<{ x: number; y: number; key: number } | null>(null);
@@ -173,10 +173,7 @@ function AmenitySelectorButton({
           reducedMotion ? (
             <span className="block h-full w-full rounded-full bg-gold" />
           ) : (
-            <span
-              className="block h-full rounded-full bg-gold"
-              style={{ width: `${progress * 100}%` }}
-            />
+            <span ref={progressFillRef} className="block h-full w-0 rounded-full bg-gold" />
           )
         ) : null}
       </span>
@@ -190,7 +187,6 @@ export function AmenityShowcase({ amenities }: AmenityShowcaseProps) {
   // starts at amenity 0 (Clubhouse) with 0 progress.
   const [activeIndex, setActiveIndex] = useState(0);
   const [interacting, setInteracting] = useState(false);
-  const [progress, setProgress] = useState(0);
   const reducedMotion = useSyncExternalStore(
     subscribeReducedMotion,
     getReducedMotionSnapshot,
@@ -209,12 +205,22 @@ export function AmenityShowcase({ amenities }: AmenityShowcaseProps) {
   const elapsedRef = useRef(0);
   const activeIndexRef = useRef(activeIndex);
 
+  // The 5s cycle's progress (0 to 1) drives the desktop/mobile progress-bar
+  // fill widths and the image blur/opacity crossfade every animation frame.
+  // Writing it to React state at 60fps would re-render this whole component
+  // — every selector button included — on every frame, which is exactly the
+  // kind of jank this section used to cause. Instead, the rAF loop below
+  // writes styles straight to these DOM nodes, and only `activeIndex`
+  // (which changes once per 5s) ever goes through React state.
+  const desktopFillRef = useRef<HTMLSpanElement | null>(null);
+  const mobileFillRef = useRef<HTMLSpanElement | null>(null);
+  const imageWrapRef = useRef<HTMLDivElement | null>(null);
+
   const selectAmenity = (index: number) => {
     if (index === activeIndexRef.current) return;
 
     elapsedRef.current = 0;
     activeIndexRef.current = index;
-    setProgress(0);
     setActiveIndex(index);
   };
 
@@ -244,7 +250,16 @@ export function AmenityShowcase({ amenities }: AmenityShowcaseProps) {
         setActiveIndex(activeIndexRef.current);
       }
 
-      setProgress(elapsedRef.current / AUTOPLAY_MS);
+      const progress = elapsedRef.current / AUTOPLAY_MS;
+      const widthPct = `${Math.min(Math.max(progress, 0), 1) * 100}%`;
+      if (desktopFillRef.current) desktopFillRef.current.style.width = widthPct;
+      if (mobileFillRef.current) mobileFillRef.current.style.width = widthPct;
+      if (imageWrapRef.current) {
+        const { filter, opacity } = getImageStyle(progress);
+        imageWrapRef.current.style.filter = filter as string;
+        imageWrapRef.current.style.opacity = String(opacity);
+      }
+
       rafId = requestAnimationFrame(tick);
     };
 
@@ -284,7 +299,9 @@ export function AmenityShowcase({ amenities }: AmenityShowcaseProps) {
               index={index}
               isActive={index === activeIndex}
               reducedMotion={reducedMotion}
-              progress={progress}
+              progressFillRef={(node) => {
+                desktopFillRef.current = node;
+              }}
               onSelect={selectAmenity}
             />
           </Reveal>
@@ -294,15 +311,20 @@ export function AmenityShowcase({ amenities }: AmenityShowcaseProps) {
       <Reveal delay={amenities.length * SELECTOR_STAGGER_MS + 80}>
         <div>
           <div className="relative aspect-16/8 overflow-hidden rounded-3xl shadow-[0_32px_64px_-32px_rgba(0,19,95,0.35)] sm:aspect-16/6 lg:aspect-32/9">
-            <CloudinaryImage
-              src={active.image.publicId}
-              alt={active.image.alt}
-              version={active.image.version}
-              fill
-              sizes="(min-width: 1024px) 70vw, 100vw"
-              className="object-cover"
-              style={reducedMotion ? { filter: "blur(0px)", opacity: 1 } : getImageStyle(progress)}
-            />
+            <div
+              ref={imageWrapRef}
+              className="absolute inset-0"
+              style={reducedMotion ? { filter: "blur(0px)", opacity: 1 } : getImageStyle(0)}
+            >
+              <CloudinaryImage
+                src={active.image.publicId}
+                alt={active.image.alt}
+                version={active.image.version}
+                fill
+                sizes="(min-width: 1920px) 1340px, (min-width: 1024px) 70vw, 100vw"
+                className="object-cover"
+              />
+            </div>
             <div
               aria-hidden
               className="pointer-events-none absolute inset-x-0 bottom-0 h-2/5 bg-linear-to-t from-navy/60 to-transparent"
@@ -333,10 +355,7 @@ export function AmenityShowcase({ amenities }: AmenityShowcaseProps) {
                       reducedMotion ? (
                         <span className="block h-full w-full rounded-full bg-gold" />
                       ) : (
-                        <span
-                          className="block h-full rounded-full bg-gold"
-                          style={{ width: `${progress * 100}%` }}
-                        />
+                        <span ref={mobileFillRef} className="block h-full w-0 rounded-full bg-gold" />
                       )
                     ) : null}
                   </span>

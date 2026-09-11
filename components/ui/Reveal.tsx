@@ -27,7 +27,7 @@ export function Reveal({ children, className, direction = "up", delay = 0 }: Rev
     <div
       ref={ref}
       className={cn(
-        "transition-all duration-700 ease-out",
+        "transition-[transform,opacity] duration-700 ease-out",
         inView ? "translate-x-0 translate-y-0 opacity-100" : `opacity-0 ${HIDDEN_TRANSFORM[direction]}`,
         className
       )}
