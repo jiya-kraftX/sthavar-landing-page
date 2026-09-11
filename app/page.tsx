@@ -6,6 +6,7 @@ import { Gallery } from "@/components/Gallery";
 import { Hero } from "@/components/Hero";
 import { Navbar } from "@/components/Navbar";
 import { SignatureAmenities } from "@/components/SignatureAmenities";
+import { VideoHero } from "@/components/VideoHero";
 import { WhyDapoli } from "@/components/WhyDapoli";
 import { WhySapphire } from "@/components/WhySapphire";
 
@@ -14,6 +15,7 @@ export default function Home() {
     <>
       <Navbar />
       <main>
+        <VideoHero />
         <Hero />
         <About />
         <SignatureAmenities />

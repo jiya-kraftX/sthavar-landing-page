@@ -14,7 +14,6 @@ import {
   PiHouseLine,
   PiImage,
   PiInstagramLogo,
-  PiLinkedinLogo,
   PiMapPin,
   PiMapTrifold,
   PiMountains,
@@ -22,12 +21,15 @@ import {
   PiRoadHorizon,
   PiShieldCheck,
   PiSparkle,
+  PiSpeakerHigh,
+  PiSpeakerSlash,
   PiSwimmingPool,
   PiTennisBall,
   PiTrendUp,
   PiUsersThree,
   PiWaves,
   PiWhatsappLogo,
+  PiYoutubeLogo,
 } from "react-icons/pi";
 import type { IconKey } from "@/types";
 
@@ -50,6 +52,8 @@ const ICON_REGISTRY: Record<IconKey, IconType> = {
   handshake: PiHandshake,
   coins: PiCoins,
   sparkle: PiSparkle,
+  "speaker-high": PiSpeakerHigh,
+  "speaker-slash": PiSpeakerSlash,
   "map-pin": PiMapPin,
   phone: PiPhone,
   envelope: PiEnvelopeSimple,
@@ -57,7 +61,7 @@ const ICON_REGISTRY: Record<IconKey, IconType> = {
   image: PiImage,
   instagram: PiInstagramLogo,
   facebook: PiFacebookLogo,
-  linkedin: PiLinkedinLogo,
+  youtube: PiYoutubeLogo,
   whatsapp: PiWhatsappLogo,
   "chevron-down": PiCaretDown,
 };

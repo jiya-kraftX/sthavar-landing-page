@@ -58,7 +58,7 @@ export function Contact() {
               <ContactMap />
               <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-linear-to-t from-navy/80 to-transparent p-5">
                 <span className="text-xs font-medium text-white">
-                  Dapoli, Ratnagiri District, Maharashtra
+                  Harnai Beach, Dapoli, Maharashtra 415713
                 </span>
               </div>
             </div>

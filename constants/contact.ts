@@ -7,6 +7,12 @@ import type { ContactDetail } from "@/types";
 // it genuinely comes from the business side once the chat opens.
 const WHATSAPP_HREF = "https://wa.me/919769734866";
 
+// Official Google Maps link for the project — Blue Breeze Project at Harnai
+// Beach, Dapoli (Mumbai–Karwar Coastal Highway, opposite Palande Vithal
+// Mandir / Harnai Beach, At & Post Harnai, Dapoli, Maharashtra 415713).
+// Every project-location link/redirect on the site should point here.
+export const PROJECT_MAP_LINK = "https://maps.app.goo.gl/5Sgj8JECN6Gpv8JK8?g_st=ic";
+
 export const CONTACT_SECTION = {
   eyebrow: "Contact",
   heading: "Begin Your Sapphire Journey",
@@ -23,7 +29,8 @@ export const CONTACT_DETAILS: ContactDetail[] = [
   {
     icon: "map-pin",
     label: "Project Location",
-    value: "Dapoli, Ratnagiri District, Maharashtra",
+    value: "Harnai Beach, Dapoli, Maharashtra 415713",
+    href: PROJECT_MAP_LINK,
   },
   {
     icon: "whatsapp",

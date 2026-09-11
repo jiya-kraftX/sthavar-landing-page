@@ -35,7 +35,7 @@ export const IMAGES = {
   },
   contactMap: {
     publicId: "sapphire/contact/dapoli-location-preview",
-    alt: "Map preview of Sapphire's project location in Dapoli, Ratnagiri District",
+    alt: "Map preview of Sapphire's project location at Harnai Beach, Dapoli, Maharashtra",
     width: 1200,
     height: 900,
   },

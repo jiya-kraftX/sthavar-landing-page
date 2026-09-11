@@ -15,7 +15,7 @@ export const NAV_CTA_LABEL = "Book Site Visit";
 export const SOCIAL_LINKS: SocialLink[] = [
   { label: "Instagram", href: "https://www.instagram.com/sthavargroup", icon: "instagram" },
   { label: "Facebook", href: "https://www.facebook.com/share/19LCB7q4xL/", icon: "facebook" },
-  { label: "LinkedIn", href: "https://linkedin.com", icon: "linkedin" },
+  { label: "YouTube", href: "https://www.youtube.com/@SthavarGroup", icon: "youtube" },
   {
     label: "WhatsApp",
     href: "https://wa.me/919769734866",

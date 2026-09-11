@@ -28,6 +28,8 @@ export type IconKey =
   | "handshake"
   | "coins"
   | "sparkle"
+  | "speaker-high"
+  | "speaker-slash"
   | "map-pin"
   | "phone"
   | "envelope"
@@ -35,6 +37,6 @@ export type IconKey =
   | "image"
   | "instagram"
   | "facebook"
-  | "linkedin"
+  | "youtube"
   | "whatsapp"
   | "chevron-down";
